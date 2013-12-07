@@ -1,0 +1,13 @@
+%table.table
+  %thead
+    %tr
+      %th Keyword
+      %th Instagram Count
+  %tbody
+  - for word in @tags
+    %tr
+      %td
+        = word[0]
+      %td
+        = word[1]
+

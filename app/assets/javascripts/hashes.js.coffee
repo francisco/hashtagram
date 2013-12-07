@@ -5,8 +5,24 @@
 $ ->
   $('#search').click ->
     event.preventDefault()
+
     query = $('#query').val()
-    $.ajax("/hashes.json?search="+ query,
-      type: "GET").done (data) ->
+    $.ajax(
+      type: "GET",
+      url: "/hashes.json?search="+ query
+    ).done (data) ->
       console.log data
+      $('.hashes').empty()
+      $('.hashes').append JST["templates/hashes"](tags : data.frequencies || [])
+
+      dataShit = data["chart"]
+      $('#myfirstchart').empty()
+      new Morris.Bar(
+        element: "myfirstchart"
+        data: dataShit
+        xkey: "keyword"
+        ykeys: ["value"]
+        labels: ["Keyword"]
+      )
+
 
